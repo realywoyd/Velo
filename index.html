@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электровелосипед Maikaolin H10 SUPER</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #222;
+            overflow-x: hidden;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .header {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            align-items: center;
+            padding: 20px 40px;
+            background: linear-gradient(90deg, #fff 0%, #e0e7ff 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2a2a72;
+        }
+        .header nav a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #222;
+            font-size: 17px;
+            transition: color 0.3s, transform 0.2s;
+        }
+        .header nav a:hover {
+            color: #f4a261;
+            transform: scale(1.1);
+        }
+        .header .cart {
+            display: flex;
+            align-items: center;
+            font-size: 17px;
+            color: #333;
+        }
+        .header .cart i {
+            margin-right: 10px;
+            transition: transform 0.3s;
+        }
+        .header .cart i:hover {
+            transform: rotate(10deg);
+        }
+        .main {
+            display: grid;
+            grid-template-areas:
+                "main-image details"
+                "separator details"
+                "gallery details";
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 40px;
+            background: #fff;
+            margin: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        .main-image {
+            grid-area: main-image;
+            max-width: 100%;
+        }
+        .main-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .main-image img:hover {
+            transform: scale(1.05);
+        }
+        .separator {
+            grid-area: separator;
+            border-top: 2px solid #e76f51;
+            margin: 15px 0;
+        }
+        .gallery {
+            grid-area: gallery;
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .gallery img {
+            width: 150px;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+        .main .details {
+            grid-area: details;
+            padding: 20px;
+        }
+        .main .details h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #2a2a72;
+        }
+        .main .details .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .main .details .stats div {
+            text-align: center;
+            background: #f9fafb;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .main .details .stats div:hover {
+            background: #e0e7ff;
+        }
+        .main .details .stats div span {
+            font-weight: bold;
+            font-size: 20px;
+            display: block;
+            color: #2a2a72;
+        }
+        .main .details .price {
+            font-size: 36px;
+            font-weight: bold;
+            color: #e76f51;
+            margin: 20px 0;
+        }
+        .main .details .buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .main .details .buttons button {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .main .details .buttons .buy {
+            background: linear-gradient(90deg, #f4a261 0%, #e76f51 100%);
+            color: #fff;
+        }
+        .main .details .buttons .buy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(228, 111, 81, 0.4);
+        }
+        .main .details .buttons .order {
+            background: #fff;
+            border: 2px solid #ddd;
+            color: #333;
+        }
+        .main .details .buttons .order:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 4px solid #f4a261;
+            margin: 20px 40px;
+            font-size: 18px;
+        }
+        .tabs div {
+            padding: 15px 40px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+        .tabs .active {
+            color: #2a2a72;
+            border-bottom: 4px solid #f4a261;
+        }
+        .tabs div:hover {
+            color: #2a2a72;
+        }
+        .tab-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 0 40px 40px;
+        }
+        .tab-content .left, .tab-content .right {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #444;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .advantages {
+            padding: 40px;
+            background: #f9fafb;
+            margin: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        .advantages h2 {
+            text-align: center;
+            color: #2a2a72;
+            margin-bottom: 30px;
+        }
+        .advantages .items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .advantages .item {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .advantages .item:hover {
+            transform: translateY(-5px);
+        }
+        .advantages .item i {
+            font-size: 30px;
+            color: #e76f51;
+            margin-bottom: 10px;
+        }
+        .footer {
+            background: linear-gradient(135deg, #2a2a72 0%, #264653 100%);
+            color: #fff;
+            padding: 40px;
+            text-align: center;
+            font-size: 15px;
+        }
+        .footer a {
+            color: #f4a261;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer a:hover {
+            color: #e76f51;
+        }
+        .footer i {
+            font-size: 20px;
+            margin: 0 10px;
+            transition: transform 0.3s;
+        }
+        .footer i:hover {
+            transform: scale(1.2);
+        }
+        @media (max-width: 1024px) {
+            .main {
+                grid-template-areas:
+                    "main-image"
+                    "separator"
+                    "gallery"
+                    "details";
+                grid-template-columns: 1fr;
+            }
+            .separator {
+                grid-area: separator;
+            }
+            .gallery {
+                grid-area: gallery;
+            }
+            .tab-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .header {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 15px;
+            }
+            .header nav {
+                margin: 10px 0;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .header nav a {
+                margin: 5px 10px;
+            }
+            .main {
+                margin: 15px;
+                padding: 20px;
+                grid-template-areas:
+                    "main-image"
+                    "separator"
+                    "gallery"
+                    "details";
+            }
+            .gallery {
+                flex-direction: row;
+                gap: 10px;
+            }
+            .gallery img {
+                width: 120px;
+            }
+            .tabs div {
+                font-size: 16px;
+                padding: 10px 15px;
+            }
+            .advantages .items {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .main .details h1 {
+                font-size: 24px;
+            }
+            .main .details .price {
+                font-size: 28px;
+            }
+            .main .details .buttons button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header fade-in">
+        <span>Electro Street</span>
+        <nav>
+            <a href="#">Доставка</a>
+            <a href="#">Оплата</a>
+            <a href="#">Контакты</a>
+            <a href="#">Сервисный центр</a>
+            <a href="#">Сравнение</a>
+            <a href="#">Избранное</a>
+            <a href="#">Корзина</a>
+        </nav>
+        <div class="cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span>+7 965 455 3099</span>
+        </div>
+    </div>
+
+    <div class="main fade-in">
+        <div class="main-image">
+            <img src="https://i.postimg.cc/hGysw81R/84644632.png" alt="Электровелосипед Maikaolin H10 SUPER" onclick="openModal('https://i.postimg.cc/hGysw81R/84644632.png')">
+        </div>
+        <div class="separator"></div>
+        <div class="gallery">
+            <img src="https://i.postimg.cc/2ST7bdJL/maikaolin-monster-h-10-19-09-2024-4-1000x1000-448-550x550.jpg" alt="Галерея 1" onclick="openModal('https://i.postimg.cc/2ST7bdJL/maikaolin-monster-h-10-19-09-2024-4-1000x1000-448-550x550.jpg')">
+            <img src="https://i.postimg.cc/RZ0nYksq/83012620-701.png" alt="Галерея 2" onclick="openModal('https://i.postimg.cc/RZ0nYksq/83012620-701.png')">
+            <img src="https://i.postimg.cc/cCmr9hfQ/maikaolin-monster-h-10-19-09-2024-12-1000x1000-131.png" alt="Галерея 3" onclick="openModal('https://i.postimg.cc/cCmr9hfQ/maikaolin-monster-h-10-19-09-2024-12-1000x1000-131.png')">
+            <img src="https://i.postimg.cc/PrSC16XH/26104908-715-550x550.jpg" alt="Галерея 4" onclick="openModal('https://i.postimg.cc/PrSC16XH/26104908-715-550x550.jpg')">
+            <img src="https://i.postimg.cc/rprzXMSy/96955331-853-550x550.jpg" alt="Галерея 5" onclick="openModal('https://i.postimg.cc/rprzXMSy/96955331-853-550x550.jpg')">
+            <img src="https://i.postimg.cc/bN4hXbLb/maikaolin-monster-h-10-19-09-2024-8-1000x1000-545.png" alt="Галерея 6" onclick="openModal('https://i.postimg.cc/bN4hXbLb/maikaolin-monster-h-10-19-09-2024-8-1000x1000-545.png')">
+            <img src="https://i.postimg.cc/gJc9yKk9/maikaolin-monster-h-10-19-09-2024-10-1000x1000-412.png" alt="Галерея 7" onclick="openModal('https://i.postimg.cc/gJc9yKk9/maikaolin-monster-h-10-19-09-2024-10-1000x1000-412.png')">
+        </div>
+        <div class="details">
+            <h1>Электровелосипед Maikaolin H10 SUPER</h1>
+            <div class="stats">
+                <div><span>60 км/ч</span>Скорость</div>
+                <div><span>95 км</span>Запас хода</div>
+                <div><span>240 Вт</span>Мощность</div>
+                <div><span>16"</span>Диаметр</div>
+                <div><span>60 кг</span>Вес</div>
+            </div>
+            <div>В наличии на складе</div>
+            <div>Артикул: 17068</div>
+            <div>Доставка: г. Краснодар</div>
+            <div>Кредит / Рассрочка: сегодня* курьером (стоимость уточняйте у менеджера)</div>
+            <div>Гарантия: 12 мес. - бесплатно</div>
+            <div>От 6 р./дн. при покупке товара в магазине</div>
+            <div class="price">89 990 ₽</div>
+            <div class="buttons">
+                <button class="buy">Купить</button>
+                <button class="order">Быстрый заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabs fade-in">
+        <div class="active">Характеристики</div>
+        <div>Описание</div>
+        <div>Отзывы</div>
+    </div>
+
+    <div class="tab-content fade-in">
+        <div class="left">
+            <p>Аккумулятор, V: 60</p>
+            <p>Емкость аккумулятора, Ah: 40</p>
+            <p>Число колес: 2</p>
+            <p>Скорость, до км/ч: 60</p>
+            <p>Запас хода, до км: 95</p>
+            <p>Мощность двигателя, Вт: 240</p>
+            <p>Диаметр колеса, дюйм: 16</p>
+            <p>Время зарядки, ч: 8</p>
+            <p>Амортизация: Да</p>
+            <p>Привод: Задний</p>
+        </div>
+        <div class="right">
+            <p>Максимальная нагрузка, до кг: 220</p>
+            <p>Материал рамы: Сталь</p>
+            <p>Высота руля: Да</p>
+            <p>Числен: Да</p>
+            <p>Фары: Да</p>
+            <p>Подножка: Да</p>
+            <p>Тормоза: Гидравлические</p>
+            <p>Складной: Нет</p>
+            <p>Тип аккумулятора: Li-ion</p>
+            <p>Вес, кг: 60</p>
+        </div>
+    </div>
+
+    <div class="tab-content fade-in" style="display: none;">
+        <div class="left" style="grid-column: span 2;">
+            <h2>Официальное описание от производителя Maikaolin</h2>
+            <p>Электровелосипед Maikaolin H10 SUPER — это воплощение инноваций и надежности, разработанное нашей командой инженеров для активного образа жизни. Оснащенный мощным двигателем на 240 Вт, этот велосипед обеспечивает впечатляющую скорость до 60 км/ч и запас хода до 95 км на одном заряде. Корпус из прочной стальной рамы и 16-дюймовые колеса гарантируют устойчивость и комфорт даже на сложных участках местности.</p>
+            <p>Интегрированный аккумулятор на 60 В с емкостью 40 Ач позволяет наслаждаться поездками без необходимости частой подзарядки — полный цикл зарядки занимает всего 8 часов. Гидравлические тормоза и амортизационная система обеспечивают безопасность и плавность хода. Maikaolin H10 SUPER идеально подходит для городских приключений и загородных поездок, сочетая стильный дизайн с передовыми технологиями.</p>
+            <p>Мы гордимся тем, что каждый электровелосипед проходит строгую проверку качества на нашем заводе, чтобы гарантировать долговечность и удовольствие от использования. Выбирайте Maikaolin — выбирайте свободу передвижения!</p>
+        </div>
+    </div>
+
+    <div class="tab-content fade-in" style="display: none;">
+        <div class="left" style="grid-column: span 2;">
+            <h2>Отзывы</h2>
+            <p>Пока отзывов нет. Будьте первым, кто оставит отзыв!</p>
+        </div>
+    </div>
+
+    <div class="advantages fade-in">
+        <h2>Преимущества</h2>
+        <div class="items">
+            <div class="item"><i class="fas fa-battery-full"></i><p>Высокая емкость батареи</p></div>
+            <div class="item"><i class="fas fa-shield-alt"></i><p>Гарантия 12 месяцев</p></div>
+            <div class="item"><i class="fas fa-truck"></i><p>Быстрая доставка</p></div>
+        </div>
+    </div>
+
+    <div class="footer fade-in">
+        <p>© 2012 – 2025 ElectroStreet<br>Интернет-магазин товаров для активного отдыха</p>
+        <p>
+            <a href="#">О компании</a>
+            <a href="#">Доставка</a>
+            <a href="#">Оплата</a>
+            <a href="#">Отзывы</a>
+            <a href="#">Сертификаты</a>
+            <a href="#">Контакты</a>
+            <a href="#">Сервисный центр</a>
+        </p>
+        <p>
+            г. Краснодар, ул. Сормовская, д. 4/1<br>
+            10:00 до 20:00 - Без выходных<br>
+            +7 965 455 3099<br>
+            krasnodar@electrosteet.ru
+        </p>
+        <p>
+            <a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="#"><i class="fab fa-viber"></i> Viber</a>
+            <a href="#"><i class="fab fa-telegram-plane"></i> Telegram</a>
+        </p>
+        <p>
+            <img src="visa.png" alt="Visa">
+            <img src="mastercard.png" alt="Mastercard">
+            <img src="paykeeper.png" alt="PayKeeper">
+            <img src="sberbank.png" alt="Sberbank">
+            <img src="mir.png" alt="Mir">
+        </p>
+    </div>
+
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">×</span>
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="Развернутое изображение">
+        </div>
+    </div>
+
+    <script>
+        function openModal(src) {
+            document.getElementById('modal-image').src = src;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('modal')) {
+                closeModal();
+            }
+        }
+
+        document.querySelectorAll('.tabs div').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tabs div').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
+                document.querySelectorAll('.tab-content')[Array.from(document.querySelectorAll('.tabs div')).indexOf(tab)].style.display = 'grid';
+            });
+        });
+    </script>
+</body>
+  </html>
